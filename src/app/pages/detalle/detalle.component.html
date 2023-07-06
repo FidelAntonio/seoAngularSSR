@@ -1,0 +1,13 @@
+<div class="container mt-4" *ngIf="result">
+    <div class="card" style="width: 18rem;">
+        <img class="card-img-top" src="{{result.image}}" alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">{{result.name}}</h5>
+          <p class="card-text">{{result.species}}</p>
+          <p class="card-text">{{result.status}}</p>
+          <a routerLink="/inicio" class="btn btn-primary">Regresar</a>
+        </div>
+      </div>
+</div>
+
+
