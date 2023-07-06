@@ -15,8 +15,9 @@ export class InicioComponent implements OnInit{
     private title: Title
   ){
     this.metaService.removeTag( 'name="robots"' )
-    this.title.setTitle('Listado | SEO dinamico')   
-    this.metaService.updateTag({ property: 'og:title', content: 'Listado Personajes | SeoDinamico' }); 
+    this.title.setTitle('Listado | SEO dinamico')
+    this.metaService.updateTag({ name: 'desciption', content: 'Esta es una pagina de listado | seo Dinamico' });
+    this.metaService.updateTag({ property: 'og:title', content: 'Listado Personajes | SeoDinamico' });
     this.metaService.updateTag({ property: 'description', content: 'Listado Personajes desde la API | SeoDinamico' });
     // this.metaService.updateTag({ property: 'og:url', content: 'Listado Personajes | SeoDinamico' });
     this.metaService.updateTag({ property: 'og:image', content: 'https://media.revistagq.com/photos/640060bc0350668344429c1b/master/pass/42133433-01B0-4FF7-B6F1-3CF554564B76.jpeg' });
@@ -33,11 +34,11 @@ export class InicioComponent implements OnInit{
     this.getInfoPersonajes()
   }
 
-   
+
 
   getInfoPersonajes(){
    this.httpService.get('https://rickandmortyapi.com/api/character/?page=1').subscribe((result: any)=>{
-     this.result = result.results;  
+     this.result = result.results;
    })
   }
 }
