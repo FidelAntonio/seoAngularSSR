@@ -34,7 +34,7 @@ export class DetalleComponent implements OnInit {
     this.setSeo(name, 'https://rickandmortyapi.com/api/character/avatar/' + id + '.jpeg')
     this.httpService.get('https://rickandmortyapi.com/api/character/' + this.id).subscribe((result: any) => {
       this.result = result;
-      console.log('h', result);
+      console.log('h', this.result);
       this.title.setTitle(this.result.name + ' | SEO dinamico detalle')
       this.meta.updateTag({ property: 'description', content: `${this.result.image}` });
       this.meta.updateTag({ property: 'og:title', content: this.result.name + ' | SeoDinamico' });
