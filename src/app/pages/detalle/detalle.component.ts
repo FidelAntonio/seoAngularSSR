@@ -45,6 +45,7 @@ data:any;
       this.meta.updateTag({ property: 'og:title', content: this.data.name + ' | SeoDinamico' });
       this.meta.updateTag({ property: 'og:image', content: this.data.image });
       this.meta.updateTag({ content: this.data.name} , 'name="description"' );
+      this.meta.updateTag({name:'og:url',property:'og:url',content:'https://web.diputados.gob.mx/assets/images/logo.png'});
 
 
     })
