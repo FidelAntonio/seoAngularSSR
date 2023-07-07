@@ -16,7 +16,8 @@ export class InicioComponent implements OnInit{
   ){
     this.metaService.removeTag( 'name="robots"' )
     this.title.setTitle('Listado | SEO dinamico')
-    this.metaService.updateTag({ name: 'desciption', content: 'Esta es una pagina de listado | seo Dinamico' });
+    this.metaService.updateTag({ name: 'description', content: 'Esta es una pagina de listado | seo Dinamico' });
+    this.metaService.updateTag({ name: 'keywords', content: 'correo telefono etc ' });
     this.metaService.updateTag({ property: 'og:title', content: 'Listado Personajes | SeoDinamico' });
     this.metaService.updateTag({ property: 'description', content: 'Listado Personajes desde la API | SeoDinamico' });
     // this.metaService.updateTag({ property: 'og:url', content: 'Listado Personajes | SeoDinamico' });
