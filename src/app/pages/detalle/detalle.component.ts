@@ -52,8 +52,8 @@ data:any;
       this.meta.updateTag( { property:'og:title', content:'Social Medi Description of the component'},"property='og:title'");
       this.meta.addTag({ property: 'og:title', content: 'Duplicate Social Media descripton'});
       this.meta.addTag({property:"og:url", content:"http://www.nytimes.com/2015/02/19/arts/international/when-great-minds-dont-think-alike.html"});
-      this.meta.addTag({property:"og:image",content:"http://static01.nyt.com/images/2015/02/19/arts/international/19iht-btnumbers19A/19iht-btnumbers19A-facebookJumbo-v2.jpg"})
-
+      this.meta.addTag({property:"og:image", content:"http://static01.nyt.com/images/2015/02/19/arts/international/19iht-btnumbers19A/19iht-btnumbers19A-facebookJumbo-v2.jpg"})
+      this.meta.updateTag({ name: 'robots', content:'follow,index' })
     })
   }
 
