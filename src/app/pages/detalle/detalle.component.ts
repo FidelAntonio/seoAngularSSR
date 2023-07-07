@@ -37,20 +37,24 @@ data:any;
       this.id = e.id;
       this.name = e.name;
     });
-    // console.log(this.id);
-    // this.setSeo(name, 'https://rickandmortyapi.com/api/character/avatar/' + id + '.jpeg')
-    // this.httpService.get('https://rickandmortyapi.com/api/character/' + this.id).subscribe((result: any) => {
-    //   this.data = result;
-    //   console.log('h', this.data);
-    //   this.title.setTitle(this.data.name + ' | SEO dinamico detalle')
-    //   this.meta.updateTag({ property: 'description', content: `${this.data.image}` });
-    //   this.meta.updateTag({ property: 'og:title', content: this.data.name + ' | SeoDinamico' });
-    //   this.meta.updateTag({ property: 'og:image', content: this.data.image });
-    //   this.meta.updateTag({ content: this.data.name} , 'name="description"' );
-    //   this.meta.updateTag({name:'og:url',property:'og:url',content:'https://web.diputados.gob.mx/assets/images/logo.png'});
+    console.log(this.id);
+    this.setSeo(name, 'https://rickandmortyapi.com/api/character/avatar/' + id + '.jpeg')
+    this.httpService.get('https://rickandmortyapi.com/api/character/' + this.id).subscribe((result: any) => {
+      this.data = result;
+      console.log('h', this.data);
+      this.title.setTitle(this.data.name + ' | SEO dinamico detalle')
+      this.meta.updateTag({ property: 'description', content: `${this.data.image}` });
+      this.meta.updateTag({ property: 'og:title', content: this.data.name + ' | SeoDinamico' });
+      this.meta.updateTag({ property: 'og:image', content: this.data.image });
+      this.meta.updateTag({ content: this.data.name} , 'name="description"' );
+      this.meta.updateTag({name:'og:url',property:'og:url',content:'https://web.diputados.gob.mx/assets/images/logo.png'});
+      this.meta.updateTag( { name:'description', content:'Article Description'},"name='description'");
+      this.meta.updateTag( { property:'og:title', content:'Social Medi Description of the component'},"property='og:title'");
+      this.meta.addTag({ property: 'og:title', content: 'Duplicate Social Media descripton'});
+      this.meta.addTag({property:"og:url", content:"http://www.nytimes.com/2015/02/19/arts/international/when-great-minds-dont-think-alike.html"});
+      this.meta.addTag({property:"og:image",content:"http://static01.nyt.com/images/2015/02/19/arts/international/19iht-btnumbers19A/19iht-btnumbers19A-facebookJumbo-v2.jpg"})
 
-
-    // })
+    })
   }
 
   result: any = []
@@ -76,23 +80,23 @@ data:any;
     //   this.setSeo(this.name, 'https://rickandmortyapi.com/api/character/avatar/' + this.id + '.jpeg')
     // }, 4000);
     this.getInfoPersonaje();
-    this.router.events
-      .pipe(
-        filter((event) => event instanceof NavigationEnd),
-        map(() => this.url),
-        map((route) => {
-          while (route.firstChild) {
-            route = route.firstChild;
-          }
-          return route;
-        }),
-        filter((route) => route.outlet === 'primary'),
-        mergeMap((route) => route.data),
-        tap(({id,name}: any) => {
-           this.updateTitle(name);
-           this.updateDescription(id);
-         })
-      ).subscribe();
+    // this.router.events
+    //   .pipe(
+    //     filter((event) => event instanceof NavigationEnd),
+    //     map(() => this.url),
+    //     map((route) => {
+    //       while (route.firstChild) {
+    //         route = route.firstChild;
+    //       }
+    //       return route;
+    //     }),
+    //     filter((route) => route.outlet === 'primary'),
+    //     mergeMap((route) => route.data),
+    //     tap(({id,name}: any) => {
+    //        this.updateTitle(name);
+    //        this.updateDescription(id);
+    //      })
+    //   ).subscribe();
   }
   updateTitle(title: string) {
     if (title) {
