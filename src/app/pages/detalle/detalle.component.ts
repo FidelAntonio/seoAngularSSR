@@ -23,7 +23,6 @@ export class DetalleComponent implements OnInit {
     @Inject(PLATFORM_ID) private platformId: Object,
     @Inject(DOCUMENT) private doc: any,
   ) {
-
     let id: any = ''
     let name: any = ''
     if (isPlatformBrowser(this.platformId)) {
@@ -33,6 +32,17 @@ export class DetalleComponent implements OnInit {
       name = params.get('name')
     }
     this.setSeo(name, 'https://rickandmortyapi.com/api/character/avatar/' + id + '.jpeg')
+    this.httpService.get('https://rickandmortyapi.com/api/character/' + this.id).subscribe((result: any) => {
+      this.result = result;
+      console.log('h', result);
+      this.title.setTitle(this.result.name + ' | SEO dinamico detalle')
+      this.meta.updateTag({ property: 'description', content: `${this.result.image}` });
+      this.meta.updateTag({ property: 'og:title', content: this.result.name + ' | SeoDinamico' });
+      this.meta.updateTag({ property: 'og:image', content: this.result.image });
+      this.meta.updateTag({ content: 'Angular 4 meta service'} , 'name="description"' );
+
+
+    })
   }
 
   result: any = []
@@ -71,16 +81,7 @@ export class DetalleComponent implements OnInit {
   }
 
   async getInfoPersonaje() {
-    await this.httpService.get('https://rickandmortyapi.com/api/character/' + this.id).subscribe((result: any) => {
-      this.result = result;
-      console.log('h', result);
-      this.title.setTitle(this.result.name + ' | SEO dinamico detalle')
-      this.meta.updateTag({ property: 'description', content: `${this.result.image}` });
-      this.meta.updateTag({ property: 'og:title', content: this.result.name + ' | SeoDinamico' });
-      this.meta.updateTag({ property: 'og:image', content: this.result.image });
 
-
-    })
   }
 
 }
