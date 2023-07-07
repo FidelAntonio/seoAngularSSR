@@ -14,7 +14,7 @@ export class DetalleComponent implements OnInit {
   // ulrimg="http://webdiputados/{titujloentrada}.png";
   urlimagen = 'https://rickandmortyapi.com/api/character/avatar/'
 
-
+data:any;
   constructor(
     private httpService: HttpClient,
     private url: ActivatedRoute,
@@ -33,13 +33,13 @@ export class DetalleComponent implements OnInit {
     }
     this.setSeo(name, 'https://rickandmortyapi.com/api/character/avatar/' + id + '.jpeg')
     this.httpService.get('https://rickandmortyapi.com/api/character/' + this.id).subscribe((result: any) => {
-      this.result = result;
-      console.log('h', this.result);
-      this.title.setTitle(this.result.name + ' | SEO dinamico detalle')
-      this.meta.updateTag({ property: 'description', content: `${this.result.image}` });
-      this.meta.updateTag({ property: 'og:title', content: this.result.name + ' | SeoDinamico' });
-      this.meta.updateTag({ property: 'og:image', content: this.result.image });
-      this.meta.updateTag({ content: 'Angular 4 meta service'} , 'name="description"' );
+      this.data = result;
+      console.log('h', this.data);
+      this.title.setTitle(this.data.name + ' | SEO dinamico detalle')
+      this.meta.updateTag({ property: 'description', content: `${this.data.image}` });
+      this.meta.updateTag({ property: 'og:title', content: this.data.name + ' | SeoDinamico' });
+      this.meta.updateTag({ property: 'og:image', content: this.data.image });
+      this.meta.updateTag({ content: this.data.name} , 'name="description"' );
 
 
     })
