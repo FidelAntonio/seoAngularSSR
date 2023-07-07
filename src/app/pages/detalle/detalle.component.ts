@@ -2,7 +2,8 @@ import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { filter, map, mergeMap, tap } from 'rxjs';
 
 @Component({
   selector: 'app-detalle',
@@ -16,6 +17,7 @@ export class DetalleComponent implements OnInit {
 
 data:any;
   constructor(
+    private router: Router,
     private httpService: HttpClient,
     private url: ActivatedRoute,
     private meta: Meta,
@@ -35,29 +37,29 @@ data:any;
       this.id = e.id;
       this.name = e.name;
     });
-    console.log(this.id);
-    this.setSeo(name, 'https://rickandmortyapi.com/api/character/avatar/' + id + '.jpeg')
-    this.httpService.get('https://rickandmortyapi.com/api/character/' + this.id).subscribe((result: any) => {
-      this.data = result;
-      console.log('h', this.data);
-      this.title.setTitle(this.data.name + ' | SEO dinamico detalle')
-      this.meta.updateTag({ property: 'description', content: `${this.data.image}` });
-      this.meta.updateTag({ property: 'og:title', content: this.data.name + ' | SeoDinamico' });
-      this.meta.updateTag({ property: 'og:image', content: this.data.image });
-      this.meta.updateTag({ content: this.data.name} , 'name="description"' );
-      this.meta.updateTag({name:'og:url',property:'og:url',content:'https://web.diputados.gob.mx/assets/images/logo.png'});
+    // console.log(this.id);
+    // this.setSeo(name, 'https://rickandmortyapi.com/api/character/avatar/' + id + '.jpeg')
+    // this.httpService.get('https://rickandmortyapi.com/api/character/' + this.id).subscribe((result: any) => {
+    //   this.data = result;
+    //   console.log('h', this.data);
+    //   this.title.setTitle(this.data.name + ' | SEO dinamico detalle')
+    //   this.meta.updateTag({ property: 'description', content: `${this.data.image}` });
+    //   this.meta.updateTag({ property: 'og:title', content: this.data.name + ' | SeoDinamico' });
+    //   this.meta.updateTag({ property: 'og:image', content: this.data.image });
+    //   this.meta.updateTag({ content: this.data.name} , 'name="description"' );
+    //   this.meta.updateTag({name:'og:url',property:'og:url',content:'https://web.diputados.gob.mx/assets/images/logo.png'});
 
 
-    })
+    // })
   }
 
   result: any = []
   id: string = '';
   name: string = '';
   ngOnInit(): void {
-    this.url.queryParams.subscribe(async (e: any) => {
-      this.id = e.id;
-      this.name = e.name;
+    // this.url.queryParams.subscribe(async (e: any) => {
+    //   this.id = e.id;
+    //   this.name = e.name;
 
 
       //   this.meta.addTag({name: 'robots', content:'noindex'})
@@ -68,14 +70,41 @@ data:any;
       //   linkElement.setAttribute('rel', 'canonical');
       //   linkElement.setAttribute('href', this.doc.URL.split('?')[0]);
       // }
-    });
+    // });
 
     // setTimeout(() => {
     //   this.setSeo(this.name, 'https://rickandmortyapi.com/api/character/avatar/' + this.id + '.jpeg')
     // }, 4000);
     this.getInfoPersonaje();
+    this.router.events
+      .pipe(
+        filter((event) => event instanceof NavigationEnd),
+        map(() => this.url),
+        map((route) => {
+          while (route.firstChild) {
+            route = route.firstChild;
+          }
+          return route;
+        }),
+        filter((route) => route.outlet === 'primary'),
+        mergeMap((route) => route.data),
+        tap(({id,name}: any) => {
+           this.updateTitle(name);
+           this.updateDescription(id);
+         })
+      ).subscribe();
+  }
+  updateTitle(title: string) {
+    if (title) {
+      this.title.setTitle(title);
+    }
   }
 
+  updateDescription(description: string) {
+    if (description) {
+      this.meta.updateTag({ name: 'description', content: description });
+    }
+  }
   ngOnDestroy(): void {
     this.meta.removeTag('name="robots"')
   }
