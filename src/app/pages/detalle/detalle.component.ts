@@ -45,18 +45,18 @@ export class DetalleComponent implements OnInit {
 
 
       //   this.meta.addTag({name: 'robots', content:'noindex'})
-      const linkElement = this.doc.head.querySelector(`link[rel='canonical']`)
-        || this.doc.head.appendChild(this.doc.createElement('link'));
+      // const linkElement = this.doc.head.querySelector(`link[rel='canonical']`)
+      //   || this.doc.head.appendChild(this.doc.createElement('link'));
 
-      if (linkElement) {
-        linkElement.setAttribute('rel', 'canonical');
-        linkElement.setAttribute('href', this.doc.URL.split('?')[0]);
-      }
+      // if (linkElement) {
+      //   linkElement.setAttribute('rel', 'canonical');
+      //   linkElement.setAttribute('href', this.doc.URL.split('?')[0]);
+      // }
     });
 
-    setTimeout(() => {
-      this.setSeo(this.name, 'https://rickandmortyapi.com/api/character/avatar/' + this.id + '.jpeg')
-    }, 4000);
+    // setTimeout(() => {
+    //   this.setSeo(this.name, 'https://rickandmortyapi.com/api/character/avatar/' + this.id + '.jpeg')
+    // }, 4000);
     this.getInfoPersonaje();
   }
 
@@ -74,7 +74,7 @@ export class DetalleComponent implements OnInit {
     await this.httpService.get('https://rickandmortyapi.com/api/character/' + this.id).subscribe((result: any) => {
       this.result = result;
       console.log('h', result);
-      this.title.setTitle(this.result.name + ' | SEO dinamico')
+      this.title.setTitle(this.result.name + ' | SEO dinamico detalle')
       this.meta.updateTag({ property: 'description', content: `${this.result.image}` });
       this.meta.updateTag({ property: 'og:title', content: this.result.name + ' | SeoDinamico' });
       this.meta.updateTag({ property: 'og:image', content: this.result.image });
