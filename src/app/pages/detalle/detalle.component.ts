@@ -31,6 +31,11 @@ data:any;
       id = params.get('id')
       name = params.get('name')
     }
+    this.url.queryParams.subscribe(async (e: any) => {
+      this.id = e.id;
+      this.name = e.name;
+    });
+    console.log(this.id);
     this.setSeo(name, 'https://rickandmortyapi.com/api/character/avatar/' + id + '.jpeg')
     this.httpService.get('https://rickandmortyapi.com/api/character/' + this.id).subscribe((result: any) => {
       this.data = result;
