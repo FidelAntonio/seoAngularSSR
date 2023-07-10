@@ -53,7 +53,14 @@ data:any;
       this.meta.addTag({ property: 'og:title', content: 'Duplicate Social Media descripton'});
       this.meta.addTag({property:"og:url", content:"http://www.nytimes.com/2015/02/19/arts/international/when-great-minds-dont-think-alike.html"});
       this.meta.addTag({property:"og:image", content:"http://static01.nyt.com/images/2015/02/19/arts/international/19iht-btnumbers19A/19iht-btnumbers19A-facebookJumbo-v2.jpg"})
-      this.meta.updateTag({ name: 'robots', content:'follow,index' })
+      this.meta.updateTag({ name: 'robots', content:'follow,index' });
+      setTimeout(() => {
+        this.meta.updateTag(
+            { name: 'keywords', content: 'angular, javascript, typescript, meta' },
+            'name=keywords'
+    );
+    this.meta.updateTag({ property: 'description', content: `${this.data.image}` });
+  }, 4000)
     })
   }
 
