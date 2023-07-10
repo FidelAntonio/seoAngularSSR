@@ -37,8 +37,8 @@ export class InicioComponent implements OnInit{
   ngOnDestroy(): void {
     this.metaService.removeTag('name="robots"');
     this.metaService.removeTag('name="description"');
-    let ogTitle: HTMLMetaElement = this.metaService.getTag('property = "og:title"') ?? {} as HTMLMetaElement;
-        this.metaService.removeTagElement(ogTitle);
+    // let ogTitle: HTMLMetaElement = this.metaService.getTag('property = "og:title"') ?? {} as HTMLMetaElement;
+    //     this.metaService.removeTagElement(ogTitle);
   }
 
 
