@@ -38,11 +38,11 @@ data:any;
       this.name = e.name;
     });
     console.log(this.id);
-    this.setSeo(name, 'https://rickandmortyapi.com/api/character/avatar/' + id + '.jpeg')
+    // this.setSeo(name, 'https://rickandmortyapi.com/api/character/avatar/' + id + '.jpeg')
     this.httpService.get('https://rickandmortyapi.com/api/character/' + this.id).subscribe((result: any) => {
       this.data = result;
       console.log('h', this.data);
-      this.title.setTitle(this.data.name + ' | SEO dinamico detalle')
+      this.title.setTitle(this.name + ' | SEO dinamico detalle')
       this.meta.updateTag({ property: 'description', content: `${this.data.image}` });
       this.meta.updateTag({ property: 'og:title', content: this.data.name + ' | SeoDinamico' });
       this.meta.updateTag({ property: 'og:image', content: this.data.image });

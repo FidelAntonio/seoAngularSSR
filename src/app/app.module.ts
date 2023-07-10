@@ -21,11 +21,6 @@ function initializeAppFactory(httpClient: HttpClient): () => Observable<any> {
     );
  }
 
-
-
-
-
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -39,12 +34,8 @@ function initializeAppFactory(httpClient: HttpClient): () => Observable<any> {
     BrowserModule,
     RouterModule
   ],
-  providers: [{
-    provide: APP_INITIALIZER,
-    useFactory: initializeAppFactory,
-    deps: [HttpClient],
-    multi: true
-  }],
+  providers: [
+    ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
