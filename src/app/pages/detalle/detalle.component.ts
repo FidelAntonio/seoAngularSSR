@@ -75,6 +75,9 @@ export class DetalleComponent implements OnInit {
     // }, 4000);
     // this.getInfoPersonaje();
     this.createCanonicalURL();
+    setTimeout(() => {
+      this.updateMetaTags();
+    }, 1000);
   }
 
   ngOnDestroy(): void {
@@ -105,4 +108,9 @@ export class DetalleComponent implements OnInit {
     this.dom.head.appendChild(link);
     link.setAttribute('href', this.dom.URL);
  }
+ updateMetaTags() {
+  this.meta.updateTag({ property: 'og:image', content: this.result.image }, "property='og:image'");
+  this.meta.updateTag({ property: 'og:title', content: this.result.name }, "property='og:title'");
+  this.meta.updateTag({ property: 'og:description', content: this.result.species }, "property='og:description'");
+}
 }
