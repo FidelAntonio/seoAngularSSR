@@ -1,6 +1,6 @@
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
+import { AfterViewInit, Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { filter, map, mergeMap, tap } from 'rxjs';
@@ -10,7 +10,7 @@ import { filter, map, mergeMap, tap } from 'rxjs';
   templateUrl: './detalle.component.html',
   styleUrls: ['./detalle.component.scss']
 })
-export class DetalleComponent implements OnInit {
+export class DetalleComponent implements AfterViewInit, OnInit {
   // ulrimg="http://webdiputados/{titujloentrada}.png";
   urlimagen = 'https://rickandmortyapi.com/api/character/avatar/'
   previousUrl:any;
@@ -55,6 +55,8 @@ export class DetalleComponent implements OnInit {
   id: string = '';
   name: string = '';
   ngOnInit(): void {
+    this.updateMetaTags();
+
     // this.url.queryParams.subscribe(async (e: any) => {
     //   this.id = e.id;
     //   this.name = e.name;
@@ -112,5 +114,8 @@ export class DetalleComponent implements OnInit {
   this.meta.updateTag({ property: 'og:image', content: this.result.image }, "property='og:image'");
   this.meta.updateTag({ property: 'og:title', content: this.result.name }, "property='og:title'");
   this.meta.updateTag({ property: 'og:description', content: this.result.species }, "property='og:description'");
+}
+ngAfterViewInit(){
+  this.updateMetaTags();
 }
 }
