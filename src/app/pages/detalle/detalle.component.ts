@@ -22,7 +22,7 @@ export class DetalleComponent implements OnInit {
     private meta: Meta,
     private title: Title,
     @Inject(PLATFORM_ID) private platformId: Object,
-    @Inject(DOCUMENT) private doc: any,
+    @Inject(DOCUMENT) private dom: any,
   ) {
     router.events
     .pipe(filter(event => event instanceof NavigationEnd))
@@ -74,6 +74,7 @@ export class DetalleComponent implements OnInit {
     //   this.setSeo(this.name, 'https://rickandmortyapi.com/api/character/avatar/' + this.id + '.jpeg')
     // }, 4000);
     // this.getInfoPersonaje();
+    this.createCanonicalURL();
   }
 
   ngOnDestroy(): void {
@@ -98,5 +99,10 @@ export class DetalleComponent implements OnInit {
 
     })
   }
-
+  createCanonicalURL() {
+    let link: HTMLLinkElement = this.dom.createElement('link');
+    link.setAttribute('rel', 'canonical');
+    this.dom.head.appendChild(link);
+    link.setAttribute('href', this.dom.URL);
+ }
 }
