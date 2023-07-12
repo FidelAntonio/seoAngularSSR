@@ -9,35 +9,39 @@
   <div class="table-responsive" >
     <!-- <h1>{{ data.title }}</h1>
 <h2>{{ data.description }}</h2>
-<p>{{ data.detail }}</p>
+<p>{{ data.detail }}</p> -->
+<form [formGroup]="miFormulario" (ngSubmit)="send()">
+  <div>
+    <label for="selectField">Campo Select:</label>
+    <select id="selectField" formControlName="leng">
+      <option value="" disabled selected>Seleccionar opción</option>
+      <option [value]="item.codigo" *ngFor="let item of arrayIdiomas">{{item.idioma}}</option>
 
-<label for="lang">Choose Language: </label>
-<select id="lang" [formControl]="lang">
-  <option value="en" selected>English</option>
-  <option value="es">Spanish</option>
-  <option value="de">German </option>
-  <option value="ar">Arabic</option>
-</select> -->
+    </select>
 
-<button id="translatebtn" (click)="send()">Translate</button>
+  </div>
+
+  <button type="submit">Translate</button>
+</form>
+<!-- <button id="translatebtn" (click)="send()">Translate</button> -->
       <table class="table " >
           <thead>
               <tr style="text-align: center;">
                   <!-- <th scope="col"> PAIS <th> -->
-                      <th scope="col" > FOTOS </th>
+                      <!-- <th scope="col" > FOTOS </th> -->
                       <th>Nombre</th>
                   <th scope="col">Especie</th>
                   <th scope="col">Genero</th>
-                  <th scope="col">Ver Detalle</th>
+                  <!-- <th scope="col">Ver Detalle</th> -->
               </tr>
           </thead>
-          <tbody *ngFor="let item of result">
+          <tbody *ngFor="let item of arrayTraducido">
               <tr style="text-align: center;">
-                  <td class="p-0"><img src="{{item.image}}"  alt="" srcset="" width="230px" height="100%"></td>
+                  <!-- <td class="p-0"><img src="{{item.image}}"  alt="" srcset="" width="230px" height="100%"></td> -->
                   <td>{{item.name}}</td>
                   <td>{{item.species}}</td>
                   <td>{{item.gender}}</td>
-                  <td><a [routerLink]="['/detalle' ]" [queryParams]="{id: item.id,name:item.name.replaceAll(' ','-')}"  class="pagina" >Ver Más</a></td>
+                  <!-- <td><a [routerLink]="['/detalle' ]" [queryParams]="{id: item.id,name:item.name.replaceAll(' ','-')}"  class="pagina" >Ver Más</a></td> -->
               </tr>
           </tbody>
       </table>

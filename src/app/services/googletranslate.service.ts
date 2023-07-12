@@ -12,6 +12,7 @@ export class GoogletranslateService {
   key = 'AIzaSyA0WpuZC_xZhClqZScuwrw3xLIVvZwru_Y';
   constructor(private http: HttpClient) { }
   translate(obj: GoogleObj) {
+    // console.log(obj,'service');
     return this.http.post(this.url + this.key, obj);
     }
 }

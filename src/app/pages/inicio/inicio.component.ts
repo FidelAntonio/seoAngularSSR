@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Meta, Title } from '@angular/platform-browser';
 import {
   GoogleObj,
@@ -13,11 +13,26 @@ import {
   styleUrls: ['./inicio.component.scss'],
 })
 export class InicioComponent implements OnInit {
+  miFormulario: FormGroup = this.fb.group(
+    {
+     leng: [''],
+    }
+    // {
+    //   validators: [this.ConditionallyRequiredValidator],
+    // }
+  );
+  arrayIdiomas =[
+    { idioma:'Coreano',codigo:'ko'},
+    { idioma:'Aleman',codigo:'de'},
+    { idioma:'Japonés',codigo:'ja'},
+    { idioma:'Italiano',codigo:'it'},
+  ]
   constructor(
     private httpService: HttpClient,
     private metaService: Meta,
     private title: Title,
-    private google: GoogletranslateService
+    private google: GoogletranslateService,
+    private fb: FormBuilder,
   ) {
     this.metaService.removeTag('name="robots"');
     this.title.setTitle('Listado | SEO dinamico');
@@ -38,12 +53,11 @@ export class InicioComponent implements OnInit {
   }
   lang = new FormControl('en');
   result: any = [];
+  googleTraduc: any =[];
+  arrayTraducido: any = [];
   translateBtn: any;
   ngOnInit(): void {
-    // let max = 42
-    // let min = 0
-    // let num = Math.floor(Math.random()*(max - min)+min);
-    // console.log(num)
+
     this.getInfoPersonajes();
 
   }
@@ -53,7 +67,8 @@ export class InicioComponent implements OnInit {
       .get('https://rickandmortyapi.com/api/character/?page=1')
       .subscribe((result: any) => {
         this.result = result.results;
-        console.log(this.result.lenght);
+        // console.log(this.result, 'longitud');
+
       });
   }
   // send() {
@@ -66,37 +81,75 @@ export class InicioComponent implements OnInit {
   //   this.translateBtn.disabled = true;
   //   this.google.translate(googleObj).subscribe(
   //     (res: any) => {
-  //       this.translateBtn.disabled = false;
-  //       console.log(res.data.translations[0].translatedText);
+  //       console.log(res);
+  //     // this.result = {
+          //   title: res.data.translations[0].translatedText,
+          //   description: res.data.translations[1].translatedText,
+          //   detail: res.data.translations[2].translatedText
+          // };
   //     },
   //     (err) => {
   //       console.log(err);
   //     }
   //   );
   // }
-  ngAfterViewChecked() {
-    this.translateBtn = document.getElementById('translatebtn');
-    console.log(this.translateBtn);
-  }
+
   send() {
-    const googleObj: GoogleObj = {
-    q: [this.result.title, this.result.description, this.result.detail],
-    target: 'es'
-    };
-    this.translateBtn.disabled = true;
-    this.google.translate(googleObj).subscribe(
-    (res: any) => {
-    this.translateBtn.disabled = false;
-    this.result = {
-    title: res.data.translations[0].translatedText,
-    description: res.data.translations[1].translatedText,
-    detail: res.data.translations[2].translatedText
-    };
-    console.log(this.result);
-    },
-    err => {
-    console.log(err);
-    }
-    );
-    }
+    const tipoComentario =  this.miFormulario.value.leng ;
+    console.log(this.miFormulario.value.leng);
+    this.arrayTraducido = [];
+    this.googleTraduc = [];
+    this.result.forEach((element:any) => {
+      this.googleTraduc.push(
+
+        {
+
+          q: [element.name,element.species,element.gender],
+          target: tipoComentario
+        }
+      )
+      // console.log(this.googleTraduc);
+    });
+    this.googleTraduc.forEach((element:any) => {
+      // console.log(element);
+      this.google.translate( element).subscribe(
+        (res: any) => {
+          // console.log(res.data.translations);
+          this.arrayTraducido.push(
+            {
+              name:res.data.translations[0].translatedText,
+              species:res.data.translations[1].translatedText,
+              gender:res.data.translations[2].translatedText,
+            }
+          ) ;
+          console.log(this.arrayTraducido)
+
+        },
+        err => {
+          console.log(err);
+        }
+      );
+    });
+   }
+  // send() {
+  //   const googleObj: GoogleObj = {
+  //   q: ['the current 20th Bundestag has a total of 736 members, making it the largest Bundestag to date and the largest freely elected national parliamentary chamber in the world.'],
+  //   target:'es'
+  //   };
+  //   this.translateBtn.disabled = true;
+  //   this.google.translate(googleObj).subscribe(
+  //   (res: any) => {
+  //   this.translateBtn.disabled = false;
+  //   console.log(res.data.translations[0].translatedText)
+  //   },
+  //   err => {
+  //   console.log(err);
+  //   }
+  //   );
+  //   }
+  //   ngAfterViewChecked() {
+  //     this.translateBtn = document.getElementById('translatebtn');
+  //     console.log(this.translateBtn);
+  //   }
+
 }

@@ -33,13 +33,13 @@ export class DetalleComponent implements AfterViewInit, OnInit {
     router.events
       .pipe(filter((event) => event instanceof NavigationEnd))
       .subscribe((event: any) => {
-        console.log('prev:', event);
+        // console.log('prev:', event);
         this.previousUrl = event.url;
         this.httpService
           .get('https://rickandmortyapi.com/api/character/' + event.id)
           .subscribe((result: any) => {
             this.result = result;
-            console.log('h', result);
+            // console.log('h', result);
             this.title.setTitle(this.result.name + ' | SEO dinamico');
             this.meta.updateTag({
               property: 'description',
@@ -140,9 +140,11 @@ export class DetalleComponent implements AfterViewInit, OnInit {
     this.updateMetaTags();
   }
   ngDoCheck() {
-    console.log('do check');
+    this.updateMetaTags();
+
   }
   ngAfterViewChecked() {
-    console.log('after view checked');
+    this.updateMetaTags();
+
   }
 }

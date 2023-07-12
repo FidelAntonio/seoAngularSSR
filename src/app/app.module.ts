@@ -9,6 +9,7 @@ import { InicioComponent } from './pages/inicio/inicio.component';
 import { DetalleComponent } from './pages/detalle/detalle.component';
 import { Observable, tap } from 'rxjs';
 import { response } from 'express';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 function initializeAppFactory(httpClient: HttpClient): () => Observable<any> {
@@ -25,14 +26,17 @@ function initializeAppFactory(httpClient: HttpClient): () => Observable<any> {
   declarations: [
     AppComponent,
     InicioComponent,
-    DetalleComponent
+    DetalleComponent,
+
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
     AppRoutingModule,
     HttpClientModule,
     BrowserModule,
-    RouterModule
+    RouterModule,
+    ReactiveFormsModule,
+    FormsModule
   ],
   providers: [{
     provide: APP_INITIALIZER,
