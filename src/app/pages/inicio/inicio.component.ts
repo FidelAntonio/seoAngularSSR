@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { Meta, Title } from '@angular/platform-browser';
 import {
   GoogleObj,
@@ -35,7 +36,7 @@ export class InicioComponent implements OnInit {
         'https://media.revistagq.com/photos/640060bc0350668344429c1b/master/pass/42133433-01B0-4FF7-B6F1-3CF554564B76.jpeg',
     });
   }
-
+  lang = new FormControl('en');
   result: any = [];
   translateBtn: any;
   ngOnInit(): void {
@@ -52,28 +53,50 @@ export class InicioComponent implements OnInit {
       .get('https://rickandmortyapi.com/api/character/?page=1')
       .subscribe((result: any) => {
         this.result = result.results;
+        console.log(this.result.lenght);
       });
   }
-  send() {
-    const googleObj: GoogleObj = {
-      q: [
-        'he Bundestag (German pronunciation: [ˈbʊndəstaːk] (listen), "Federal Diet") is the German federal parliament. It is the only federal representative body ',
-      'this is an example from js node'],
-      target: 'es',
-    };
-    this.translateBtn.disabled = true;
-    this.google.translate(googleObj).subscribe(
-      (res: any) => {
-        this.translateBtn.disabled = false;
-        console.log(res.data.translations[0].translatedText);
-      },
-      (err) => {
-        console.log(err);
-      }
-    );
-  }
+  // send() {
+  //   const googleObj: GoogleObj = {
+  //     q: [
+  //       'he Bundestag (German pronunciation: [ˈbʊndəstaːk] (listen), "Federal Diet") is the German federal parliament. It is the only federal representative body ',
+  //     'this is an example from js node'],
+  //     target: 'es',
+  //   };
+  //   this.translateBtn.disabled = true;
+  //   this.google.translate(googleObj).subscribe(
+  //     (res: any) => {
+  //       this.translateBtn.disabled = false;
+  //       console.log(res.data.translations[0].translatedText);
+  //     },
+  //     (err) => {
+  //       console.log(err);
+  //     }
+  //   );
+  // }
   ngAfterViewChecked() {
     this.translateBtn = document.getElementById('translatebtn');
     console.log(this.translateBtn);
   }
+  send() {
+    const googleObj: GoogleObj = {
+    q: [this.result.title, this.result.description, this.result.detail],
+    target: 'es'
+    };
+    this.translateBtn.disabled = true;
+    this.google.translate(googleObj).subscribe(
+    (res: any) => {
+    this.translateBtn.disabled = false;
+    this.result = {
+    title: res.data.translations[0].translatedText,
+    description: res.data.translations[1].translatedText,
+    detail: res.data.translations[2].translatedText
+    };
+    console.log(this.result);
+    },
+    err => {
+    console.log(err);
+    }
+    );
+    }
 }

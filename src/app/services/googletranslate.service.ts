@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 export interface GoogleObj {
   q: string[];
-  target: string;
+  target: string ;
   }
 @Injectable({
   providedIn: 'root'
