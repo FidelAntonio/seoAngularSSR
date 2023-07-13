@@ -15,24 +15,24 @@ import {
 export class InicioComponent implements OnInit {
   miFormulario: FormGroup = this.fb.group(
     {
-     leng: ['es'],
+      leng: ['es'],
     }
     // {
     //   validators: [this.ConditionallyRequiredValidator],
     // }
   );
-  arrayIdiomas =[
-    { idioma:'Coreano',codigo:'ko'},
-    { idioma:'Aleman',codigo:'de'},
-    { idioma:'Japonés',codigo:'ja'},
-    { idioma:'Italiano',codigo:'it'},
-  ]
+  arrayIdiomas = [
+    { idioma: 'Ingles', codigo: 'en' },
+    { idioma: 'Frances', codigo: 'fr' },
+    { idioma: 'Japonés', codigo: 'ja' },
+    { idioma: 'Italiano', codigo: 'it' },
+  ];
   constructor(
     private httpService: HttpClient,
     private metaService: Meta,
     private title: Title,
     private google: GoogletranslateService,
-    private fb: FormBuilder,
+    private fb: FormBuilder
   ) {
     this.metaService.removeTag('name="robots"');
     this.title.setTitle('Listado | SEO dinamico');
@@ -53,11 +53,10 @@ export class InicioComponent implements OnInit {
   }
   lang = new FormControl('en');
   result: any = [];
-  googleTraduc: any =[];
+  googleTraduc: any = [];
   arrayTraducido: any = [];
   translateBtn: any;
   ngOnInit(): void {
-
     this.getInfoPersonajes();
   }
 
@@ -70,65 +69,75 @@ export class InicioComponent implements OnInit {
         this.send();
       });
   }
+
+  async send() {
+    const selectLenguaje = this.miFormulario.value.leng;
+    this.arrayTraducido = [];
+
+    const promises = this.result.map(async (element: any) => {
+      const translations: any = await this.google.translate({
+        q: [element.name, element.species, element.gender],
+        target: selectLenguaje,
+      }).toPromise();
+
+      return {
+        name: translations.data.translations[0].translatedText,
+        species: translations.data.translations[1].translatedText,
+        gender: translations.data.translations[2].translatedText,
+      };
+    });
+
+    this.arrayTraducido = await Promise.all(promises);
+  }
   // send() {
-  //   const googleObj: GoogleObj = {
-  //     q: [
-  //       'he Bundestag (German pronunciation: [ˈbʊndəstaːk] (listen), "Federal Diet") is the German federal parliament. It is the only federal representative body ',
-  //     'this is an example from js node'],
-  //     target: 'es',
-  //   };
-  //   this.translateBtn.disabled = true;
-  //   this.google.translate(googleObj).subscribe(
-  //     (res: any) => {
-  //       console.log(res);
-  //     // this.result = {
-          //   title: res.data.translations[0].translatedText,
-          //   description: res.data.translations[1].translatedText,
-          //   detail: res.data.translations[2].translatedText
-          // };
-  //     },
-  //     (err) => {
-  //       console.log(err);
-  //     }
-  //   );
+  //   const tipoComentario = this.miFormulario.value.leng;
+  //   this.arrayTraducido = [];
+  //   this.result.forEach(async (element: any) => {
+  //     let translations: any = [];
+  //     translations = await this.google
+  //       .translate({
+  //         q: [element.name, element.species, element.gender],
+  //         target: tipoComentario,
+  //       })
+  //       .toPromise();
+
+  //     this.arrayTraducido.push({
+  //       name: translations.data.translations[0].translatedText,
+  //       species: translations.data.translations[1].translatedText,
+  //       gender: translations.data.translations[2].translatedText,
+  //     });
+  //   });
   // }
 
-  send() {
-    const tipoComentario =  this.miFormulario.value.leng ;
-    this.arrayTraducido = [];
-    this.googleTraduc = [];
-    this.result.forEach((element:any) => {
-      this.googleTraduc.push(
-
-        {
-
-          q: [element.name,element.species,element.gender],
-          target: tipoComentario
-        }
-      )
-      // console.log(this.googleTraduc);
-    });
-    this.googleTraduc.forEach((element:any) => {
-      // console.log(element);
-      this.google.translate( element).subscribe(
-        (res: any) => {
-          // console.log(res.data.translations);
-          this.arrayTraducido.push(
-            {
-              name:res.data.translations[0].translatedText,
-              species:res.data.translations[1].translatedText,
-              gender:res.data.translations[2].translatedText,
-            }
-          ) ;
-          // console.log(this.arrayTraducido)
-
-        },
-        err => {
-          console.log(err);
-        }
-      );
-    });
-   }
+  // send() {
+  //   const tipoComentario =  this.miFormulario.value.leng ;
+  //   this.arrayTraducido = [];
+  //   this.googleTraduc = [];
+  //   this.result.forEach((element:any) => {
+  //     this.googleTraduc.push(
+  //       {
+  //         q: [element.name,element.species,element.gender],
+  //         target: tipoComentario
+  //       }
+  //     )
+  //   });
+  //   this.googleTraduc.forEach((element:any) => {
+  //     this.google.translate( element).subscribe(
+  //       (res: any) => {
+  //         this.arrayTraducido.push(
+  //           {
+  //             name:res.data.translations[0].translatedText,
+  //             species:res.data.translations[1].translatedText,
+  //             gender:res.data.translations[2].translatedText,
+  //           }
+  //         ) ;
+  //       },
+  //       err => {
+  //         console.log(err);
+  //       }
+  //     );
+  //   });
+  //  }
   // send() {
   //   const googleObj: GoogleObj = {
   //   q: ['the current 20th Bundestag has a total of 736 members, making it the largest Bundestag to date and the largest freely elected national parliamentary chamber in the world.'],
@@ -149,5 +158,26 @@ export class InicioComponent implements OnInit {
   //     this.translateBtn = document.getElementById('translatebtn');
   //     console.log(this.translateBtn);
   //   }
-
+  // send() {
+  //   const googleObj: GoogleObj = {
+  //     q: [
+  //       'he Bundestag (German pronunciation: [ˈbʊndəstaːk] (listen), "Federal Diet") is the German federal parliament. It is the only federal representative body ',
+  //     'this is an example from js node'],
+  //     target: 'es',
+  //   };
+  //   this.translateBtn.disabled = true;
+  //   this.google.translate(googleObj).subscribe(
+  //     (res: any) => {
+  //       console.log(res);
+  //     // this.result = {
+  //   title: res.data.translations[0].translatedText,
+  //   description: res.data.translations[1].translatedText,
+  //   detail: res.data.translations[2].translatedText
+  // };
+  //     },
+  //     (err) => {
+  //       console.log(err);
+  //     }
+  //   );
+  // }
 }
