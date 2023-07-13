@@ -10,19 +10,20 @@
     <!-- <h1>{{ data.title }}</h1>
 <h2>{{ data.description }}</h2>
 <p>{{ data.detail }}</p> -->
-<form [formGroup]="miFormulario" (ngSubmit)="send()">
-  <div>
-    <label for="selectField">Campo Select:</label>
-    <select id="selectField" formControlName="leng">
+<form class="row g-3" [formGroup]="miFormulario" (ngSubmit)="send()">
+  <div class="col-md-12">
+    <label for="inputState" class="form-label">Selecciona un idioma:</label>
+    <select id="inputState" class="form-select" formControlName="leng">
       <option value="es"  selected>Español</option>
       <option [value]="item.codigo" *ngFor="let item of arrayIdiomas">{{item.idioma}}</option>
-
     </select>
-
   </div>
 
-  <button type="submit">Traducir</button>
+  <div class="col-12">
+    <button type="submit" class=" form-label btn btn-primary">Traducir</button>
+  </div>
 </form>
+
 
       <table class="table " >
           <thead>
