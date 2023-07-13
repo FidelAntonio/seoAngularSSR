@@ -66,29 +66,29 @@ export class InicioComponent implements OnInit {
       .subscribe((result: any) => {
         this.result = result.results;
         // console.log(this.result, 'longitud');
-        this.send();
+
       });
   }
 
-  async send() {
-    const selectLenguaje = this.miFormulario.value.leng;
-    this.arrayTraducido = [];
+  // async send() {
+  //   const selectLenguaje = this.miFormulario.value.leng;
+  //   this.arrayTraducido = [];
 
-    const promises = this.result.map(async (element: any) => {
-      const translations: any = await this.google.translate({
-        q: [element.name, element.species, element.gender],
-        target: selectLenguaje,
-      }).toPromise();
+  //   const promises = this.result.map(async (element: any) => {
+  //     const translations: any = await this.google.translate({
+  //       q: [element.name, element.species, element.gender],
+  //       target: selectLenguaje,
+  //     }).toPromise();
 
-      return {
-        name: translations.data.translations[0].translatedText,
-        species: translations.data.translations[1].translatedText,
-        gender: translations.data.translations[2].translatedText,
-      };
-    });
+  //     return {
+  //       name: translations.data.translations[0].translatedText,
+  //       species: translations.data.translations[1].translatedText,
+  //       gender: translations.data.translations[2].translatedText,
+  //     };
+  //   });
 
-    this.arrayTraducido = await Promise.all(promises);
-  }
+  //   this.arrayTraducido = await Promise.all(promises);
+  // }
   // send() {
   //   const tipoComentario = this.miFormulario.value.leng;
   //   this.arrayTraducido = [];

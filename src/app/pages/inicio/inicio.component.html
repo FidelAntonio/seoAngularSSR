@@ -10,7 +10,7 @@
     <!-- <h1>{{ data.title }}</h1>
 <h2>{{ data.description }}</h2>
 <p>{{ data.detail }}</p> -->
-<form class="row g-3" [formGroup]="miFormulario" (ngSubmit)="send()">
+<!-- <form class="row g-3" [formGroup]="miFormulario" (ngSubmit)="send()">
   <div class="col-md-12">
     <label for="inputState" class="form-label">Selecciona un idioma:</label>
     <select id="inputState" class="form-select" formControlName="leng">
@@ -22,27 +22,27 @@
   <div class="col-12">
     <button type="submit" class=" form-label btn btn-primary">Traducir</button>
   </div>
-</form>
+</form> -->
 
 
       <table class="table " >
           <thead>
               <tr style="text-align: center;">
-                  <!-- <th scope="col"> PAIS <th> -->
-                      <!-- <th scope="col" > FOTOS </th> -->
+
+                      <th scope="col" >Foto </th>
                       <th>Nombre</th>
                   <th scope="col">Especie</th>
                   <th scope="col">Genero</th>
-                  <!-- <th scope="col">Ver Detalle</th> -->
+                  <th scope="col">Ver Detalle</th>
               </tr>
           </thead>
-          <tbody *ngFor="let item of arrayTraducido">
+          <tbody *ngFor="let item of this.result">
               <tr style="text-align: center;">
-                  <!-- <td class="p-0"><img src="{{item.image}}"  alt="" srcset="" width="230px" height="100%"></td> -->
+                  <td class="p-0"><img src="{{item.image}}"  alt="" srcset="" width="230px" height="100%"></td>
                   <td>{{item.name}}</td>
                   <td>{{item.species}}</td>
                   <td>{{item.gender}}</td>
-                  <!-- <td><a [routerLink]="['/detalle' ]" [queryParams]="{id: item.id,name:item.name.replaceAll(' ','-')}"  class="pagina" >Ver Más</a></td> -->
+                  <td><a [routerLink]="['/detalle' ]" [queryParams]="{id: item.id,name:item.name.replaceAll(' ','-')}"  class="pagina" >Ver Más</a></td>
               </tr>
           </tbody>
       </table>
