@@ -15,7 +15,7 @@ import {
 export class InicioComponent implements OnInit {
   miFormulario: FormGroup = this.fb.group(
     {
-     leng: [''],
+     leng: ['es'],
     }
     // {
     //   validators: [this.ConditionallyRequiredValidator],
@@ -59,7 +59,6 @@ export class InicioComponent implements OnInit {
   ngOnInit(): void {
 
     this.getInfoPersonajes();
-
   }
 
   getInfoPersonajes() {
@@ -68,7 +67,7 @@ export class InicioComponent implements OnInit {
       .subscribe((result: any) => {
         this.result = result.results;
         // console.log(this.result, 'longitud');
-
+        this.send();
       });
   }
   // send() {
@@ -96,7 +95,6 @@ export class InicioComponent implements OnInit {
 
   send() {
     const tipoComentario =  this.miFormulario.value.leng ;
-    console.log(this.miFormulario.value.leng);
     this.arrayTraducido = [];
     this.googleTraduc = [];
     this.result.forEach((element:any) => {
@@ -122,7 +120,7 @@ export class InicioComponent implements OnInit {
               gender:res.data.translations[2].translatedText,
             }
           ) ;
-          console.log(this.arrayTraducido)
+          // console.log(this.arrayTraducido)
 
         },
         err => {

@@ -16,7 +16,7 @@ function initializeAppFactory(httpClient: HttpClient): () => Observable<any> {
   return () => httpClient.get("https://rickandmortyapi.com/api/character/1")
     .pipe(
         tap(user => {
-          console.log(user);
+          // console.log(user);
          })
       // console.log(response)
     );

@@ -14,16 +14,16 @@
   <div>
     <label for="selectField">Campo Select:</label>
     <select id="selectField" formControlName="leng">
-      <option value="" disabled selected>Seleccionar opción</option>
+      <option value="es"  selected>Español</option>
       <option [value]="item.codigo" *ngFor="let item of arrayIdiomas">{{item.idioma}}</option>
 
     </select>
 
   </div>
 
-  <button type="submit">Translate</button>
+  <button type="submit">Traducir</button>
 </form>
-<!-- <button id="translatebtn" (click)="send()">Translate</button> -->
+
       <table class="table " >
           <thead>
               <tr style="text-align: center;">
