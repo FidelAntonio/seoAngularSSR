@@ -91,13 +91,14 @@ export class DetalleComponent implements AfterViewInit, OnInit {
     // }, 4000);
     // this.getInfoPersonaje();
     this.createCanonicalURL();
-    setTimeout(() => {
-      this.updateMetaTags();
-    }, 1000);
+    // setTimeout(() => {
+    //   this.updateMetaTags();
+    // }, 1000);
   }
 
   ngOnDestroy(): void {
     this.meta.removeTag('name="robots"');
+    this.createCanonicalURL();
   }
 
   setSeo(title: any = 'Sin titulo', image: any) {
