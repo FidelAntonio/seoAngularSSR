@@ -90,7 +90,7 @@ export class DetalleComponent implements  OnInit {
     //   this.setSeo(this.name, 'https://rickandmortyapi.com/api/character/avatar/' + this.id + '.jpeg')
     // }, 4000);
     // this.getInfoPersonaje();
-    this.createCanonicalURL();
+    this.setCanonicalURL();
     // setTimeout(() => {
     //   this.updateMetaTags();
     // }, 1000);
@@ -98,7 +98,7 @@ export class DetalleComponent implements  OnInit {
 
   ngOnDestroy(): void {
     this.meta.removeTag('name="robots"');
-    this.createCanonicalURL();
+    this.setCanonicalURL();
   }
 
   setSeo(title: any = 'Sin titulo', image: any) {
@@ -117,11 +117,19 @@ export class DetalleComponent implements  OnInit {
         // this.meta.updateTag({ property: 'og:image', content: this.result.image });
       });
   }
-  createCanonicalURL() {
-    let link: HTMLLinkElement = this.dom.createElement('link');
+  // createCanonicalURL() {
+  //   let link: HTMLLinkElement = this.dom.createElement('link');
+  //   link.setAttribute('rel', 'canonical');
+  //   this.dom.head.appendChild(link);
+  //   link.setAttribute('href', this.dom.URL);
+
+  // }
+  setCanonicalURL(url?: string) {
+    const canURL = url == undefined ? this.dom.URL : url;
+    const link: HTMLLinkElement = this.dom.createElement('link');
     link.setAttribute('rel', 'canonical');
     this.dom.head.appendChild(link);
-    link.setAttribute('href', this.dom.URL);
+    link.setAttribute('href', canURL);
   }
   updateMetaTags() {
     this.meta.updateTag(
@@ -137,15 +145,15 @@ export class DetalleComponent implements  OnInit {
       "property='og:description'"
     );
   }
-  ngAfterViewInit() {
-    this.updateMetaTags();
-  }
-  ngDoCheck() {
-    this.updateMetaTags();
+  // ngAfterViewInit() {
+  //   this.updateMetaTags();
+  // }
+  // ngDoCheck() {
+  //   this.updateMetaTags();
 
-  }
-  ngAfterViewChecked() {
-    this.updateMetaTags();
+  // }
+  // ngAfterViewChecked() {
+  //   this.updateMetaTags();
 
-  }
+  // }
 }
