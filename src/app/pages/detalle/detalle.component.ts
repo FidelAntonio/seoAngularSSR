@@ -130,6 +130,7 @@ export class DetalleComponent implements  OnInit {
     link.setAttribute('rel', 'canonical');
     this.dom.head.appendChild(link);
     link.setAttribute('href', canURL);
+    link.setAttribute('href', this.dom.URL.split('?')[0])
   }
   updateMetaTags() {
     this.meta.updateTag(
