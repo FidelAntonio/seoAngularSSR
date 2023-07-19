@@ -152,8 +152,8 @@ export class DetalleComponent implements  OnInit {
   //   this.updateMetaTags();
 
   // }
-  // ngAfterViewChecked() {
-  //   this.updateMetaTags();
+  ngAfterViewChecked() {
+    this.updateMetaTags();
 
-  // }
+  }
 }
