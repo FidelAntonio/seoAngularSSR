@@ -44,12 +44,20 @@ export class DetalleComponent implements  OnInit {
  result: any = []
  id: string = '';
  name: string = '';
+ ids: string = '';
  ngOnInit(): void {
-  this.url.params.subscribe(
-    (params: any) => {
-      this.id = params.id;
-    }
-  );
+
+  this.url.data.subscribe((data: any) => {
+    this.ids = data['id'];
+    console.log(this.ids,'asdasdasdasdasd')
+    this.resolvegetInfoPersonaje(this.ids)
+  });
+  // this.url.params.subscribe(
+  //   (params: any) => {
+  //     this.id = params.id;
+
+  //   }
+  // );
   //  this.url.queryParams.subscribe(async (e: any) => {
   //    this.id = e.id;
   //    this.name = e.name;
@@ -67,7 +75,7 @@ export class DetalleComponent implements  OnInit {
   //  });
 
 
-   this.getInfoPersonaje();
+  //  this.getInfoPersonaje();
  }
 
 //  ngOnDestroy(): void {
@@ -78,17 +86,29 @@ export class DetalleComponent implements  OnInit {
 //    let ima2 = 'https://rickandmortyapi.com/api/character/avatar/3.jpeg'
 //  }
 
- async getInfoPersonaje() {
-   await this.httpService.get('https://rickandmortyapi.com/api/character/' + this.id).subscribe((result: any) => {
-     this.result = result;
-     console.log('h', result);
-     this.title.setTitle(this.result.name + ' | SEO dinamico')
-     this.meta.updateTag({ property: 'description', content: `${this.result.image}` });
-     this.meta.updateTag({ property: 'og:description', content: `Detalle de ${result.name}` });
-     this.meta.updateTag({ property: 'og:title', content: this.result.name + ' | SeoDinamico' });
-     this.meta.updateTag({ property: 'og:image', content: this.result.image });
-     this.meta.updateTag({ property: 'twitter:image', content: this.result.image });
-   })
- }
+//  async getInfoPersonaje() {
+//    await this.httpService.get('https://rickandmortyapi.com/api/character/' + this.id).subscribe((result: any) => {
+//      this.result = result;
+//      console.log('h', result);
+//      this.title.setTitle(this.result.name + ' | SEO dinamico')
+//      this.meta.updateTag({ property: 'description', content: `${this.result.image}` });
+//      this.meta.updateTag({ property: 'og:description', content: `Detalle de ${result.name}` });
+//      this.meta.updateTag({ property: 'og:title', content: this.result.name + ' | SeoDinamico' });
+//      this.meta.updateTag({ property: 'og:image', content: this.result.image });
+//      this.meta.updateTag({ property: 'twitter:image', content: this.result.image });
+//    })
+//  }
+  resolvegetInfoPersonaje(id:string) {
+   this.httpService.get('https://rickandmortyapi.com/api/character/' + id).subscribe((result: any) => {
+    this.result = result;
+    console.log('h', result);
+    this.title.setTitle(this.result.name + ' | SEO dinamico')
+    this.meta.updateTag({ property: 'description', content: `${this.result.image}` });
+    this.meta.updateTag({ property: 'og:description', content: `Detalle de ${result.name}` });
+    this.meta.updateTag({ property: 'og:title', content: this.result.name + ' | SeoDinamico' });
+    this.meta.updateTag({ property: 'og:image', content: this.result.image });
+    this.meta.updateTag({ property: 'twitter:image', content: this.result.image });
+  })
+}
 
 }

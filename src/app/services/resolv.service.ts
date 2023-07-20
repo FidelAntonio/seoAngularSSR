@@ -13,6 +13,7 @@ export class ResolvService implements Resolve<any>{
     state: RouterStateSnapshot
     ): Observable<any>|Promise<any>|any {
      let id = route.params['id'];
+     console.log('desde el resolve',id);
      return id
     }
 }

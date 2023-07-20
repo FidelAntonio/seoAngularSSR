@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { InicioComponent } from './pages/inicio/inicio.component';
 import { DetalleComponent } from './pages/detalle/detalle.component';
+import { ResolvService } from './services/resolv.service';
 const routes: Routes = [
   {
     path: 'inicio',
@@ -9,7 +10,8 @@ const routes: Routes = [
   },
   {
     path: 'det/:id',
-    component: DetalleComponent
+    component: DetalleComponent,
+    resolve:{id:ResolvService}
   },
   {
     path: '**',
