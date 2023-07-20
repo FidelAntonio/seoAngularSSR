@@ -74,9 +74,9 @@ export class DetalleComponent implements  OnInit {
 //    this.meta.removeTag('name="robots"')
 //  }
 
- setSeo(title: any = 'Sin titulo', image: any) {
-   let ima2 = 'https://rickandmortyapi.com/api/character/avatar/3.jpeg'
- }
+//  setSeo(title: any = 'Sin titulo', image: any) {
+//    let ima2 = 'https://rickandmortyapi.com/api/character/avatar/3.jpeg'
+//  }
 
  async getInfoPersonaje() {
    await this.httpService.get('https://rickandmortyapi.com/api/character/' + this.id).subscribe((result: any) => {
