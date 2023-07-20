@@ -9,7 +9,7 @@ const routes: Routes = [
     component: InicioComponent
   },
   {
-    path: 'det/:id',
+    path: 'detalle',
     component: DetalleComponent,
     resolve:{id:ResolvService}
   },

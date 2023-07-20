@@ -14,4 +14,7 @@ export class GoogletranslateService {
   //   // console.log(obj,'service');
   //   return this.http.post(this.url + this.key, obj);
   //   }
+
+
+
 }

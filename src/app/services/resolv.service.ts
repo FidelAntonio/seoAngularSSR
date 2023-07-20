@@ -12,8 +12,11 @@ export class ResolvService implements Resolve<any>{
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
     ): Observable<any>|Promise<any>|any {
-     let id = route.params['id'];
-     console.log('desde el resolve',id);
-     return id
+      let alo=route.queryParams['id']
+      console.log(alo);
+      //  let searchTerm: any = route.queryParams.get('id') || null;
+    //  let id = route.params['id'];
+    //  console.log('desde el resolve',searchTerm);
+     return alo
     }
 }
