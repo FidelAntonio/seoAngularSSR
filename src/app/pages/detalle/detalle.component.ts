@@ -70,9 +70,9 @@ export class DetalleComponent implements  OnInit {
    this.getInfoPersonaje();
  }
 
- ngOnDestroy(): void {
-   this.meta.removeTag('name="robots"')
- }
+//  ngOnDestroy(): void {
+//    this.meta.removeTag('name="robots"')
+//  }
 
  setSeo(title: any = 'Sin titulo', image: any) {
    let ima2 = 'https://rickandmortyapi.com/api/character/avatar/3.jpeg'
