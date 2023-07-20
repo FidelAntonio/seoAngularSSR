@@ -8,7 +8,6 @@ export interface GoogleObj {
   providedIn: 'root'
 })
 export class GoogletranslateService {
-  // url = 'https://translation.googleapis.com/language/translate/v2?key=';
   // key = '';
   // constructor(private http: HttpClient) { }
   // translate(obj: GoogleObj) {
