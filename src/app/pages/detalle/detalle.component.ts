@@ -10,6 +10,7 @@ import {
 import { Meta, Title } from '@angular/platform-browser';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { filter, map, mergeMap, tap } from 'rxjs';
+import { ResolvService } from 'src/app/services/resolv.service';
 
 @Component({
   selector: 'app-detalle',
@@ -22,6 +23,7 @@ export class DetalleComponent implements  OnInit {
  page_title="'Hola!!!";
 
  constructor(
+  private resolv:ResolvService,
    private httpService: HttpClient,
    private url: ActivatedRoute,
    private meta: Meta,
@@ -46,12 +48,17 @@ export class DetalleComponent implements  OnInit {
  name: string = '';
  ids: string = '';
  ngOnInit(): void {
+  this.url.data.subscribe(
+    ({id}) => {
 
-  this.url.data.subscribe((data: any) => {
-    this.ids = data['id'];
-    console.log(this.ids,'asdasdasdasdasd')
-    this.resolvegetInfoPersonaje(this.ids)
-  });
+        console.log(id.id)
+        this.resolvegetInfoPersonaje(id.id)
+      });
+
+  // this.url.data.subscribe((data: any) => {
+  //   this.ids = data['id'];
+  //   console.log(this.ids,'asdasdasdasdasd')
+  // });
   // this.url.params.subscribe(
   //   (params: any) => {
   //     this.id = params.id;
@@ -99,6 +106,9 @@ export class DetalleComponent implements  OnInit {
 //    })
 //  }
   resolvegetInfoPersonaje(id:string) {
+
+
+    console.log(id);
    this.httpService.get('https://rickandmortyapi.com/api/character/' + id).subscribe((result: any) => {
     this.result = result;
     console.log('h', result);
