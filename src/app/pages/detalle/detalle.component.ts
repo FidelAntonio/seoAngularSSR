@@ -118,6 +118,8 @@ export class DetalleComponent implements  OnInit {
     this.meta.updateTag({ property: 'og:title', content: this.result.name + ' | SeoDinamico' });
     this.meta.updateTag({ property: 'og:image', content: this.result.image });
     this.meta.updateTag({ property: 'twitter:image', content: this.result.image });
+    this.meta.updateTag({ prefix: "og: http://ogp.me/ns#" });
+
   })
 }
 
