@@ -7,7 +7,8 @@ import { ResolvService } from './services/resolv.service';
 
 export const heroResolver: ResolveFn<any> =
     (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => {
-      return inject(ResolvService).getHero(route.paramMap.get('id')!);
+      return inject(ResolvService).getHero(route.queryParamMap.get('id')!);
+      // this.route.queryParams.subscribe(params => {this.idCurso =params.Oid;});
     };
 const routes: Routes = [
   {
@@ -15,7 +16,7 @@ const routes: Routes = [
     component: InicioComponent
   },
   {
-    path: 'detalle/:id',
+    path: 'detalle',
     component: DetalleComponent,
     resolve: {id: heroResolver},
   },

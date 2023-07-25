@@ -51,8 +51,8 @@ export class DetalleComponent implements  OnInit {
   this.url.data.subscribe(
     ({id}) => {
 
-        console.log(id.id)
-        this.resolvegetInfoPersonaje(id.id)
+        console.log(id)
+        this.resolvegetInfoPersonaje(id)
       });
 
   // this.url.data.subscribe((data: any) => {

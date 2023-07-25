@@ -11,7 +11,7 @@ export class ResolvService {
 
 
     getHero(id: string) {
-      return {id: `${id}`};
+      return id;
     }
 
   // resolve(
