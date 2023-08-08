@@ -50,7 +50,6 @@ export class DetalleComponent implements OnInit {
   ngOnInit(): void {
     this.url.data.subscribe(
       (data:any) => {
-        console.log('asdasd', data.id);
       this.result = data.id;
       this.title.setTitle(this.result.name + ' | SEO dinamico')
       this.meta.updateTag({ property: 'description', content: `${this.result.image}` });
@@ -119,22 +118,22 @@ export class DetalleComponent implements OnInit {
   //      this.meta.updateTag({ property: 'twitter:image', content: this.result.image });
   //    })
   //  }
-  resolvegetInfoPersonaje(id: string) {
+  // resolvegetInfoPersonaje(id: string) {
 
 
-    console.log(id);
-    this.httpService.get('https://rickandmortyapi.com/api/character/' + id).subscribe((result: any) => {
-      this.result = result;
-      console.log('h', result);
-      this.title.setTitle(this.result.name + ' | SEO dinamico')
-      this.meta.updateTag({ property: 'description', content: `${this.result.image}` });
-      this.meta.updateTag({ property: 'og:description', content: `Detalle de ${result.name}` });
-      this.meta.updateTag({ property: 'og:title', content: this.result.name + ' | SeoDinamico' });
-      this.meta.updateTag({ property: 'og:image', content: this.result.image });
-      this.meta.updateTag({ property: 'twitter:image', content: this.result.image });
-      this.meta.updateTag({ prefix: "og: http://ogp.me/ns#" });
+  //   console.log(id);
+  //   this.httpService.get('https://rickandmortyapi.com/api/character/' + id).subscribe((result: any) => {
+  //     this.result = result;
+  //     console.log('h', result);
+  //     this.title.setTitle(this.result.name + ' | SEO dinamico')
+  //     this.meta.updateTag({ property: 'description', content: `${this.result.image}` });
+  //     this.meta.updateTag({ property: 'og:description', content: `Detalle de ${result.name}` });
+  //     this.meta.updateTag({ property: 'og:title', content: this.result.name + ' | SeoDinamico' });
+  //     this.meta.updateTag({ property: 'og:image', content: this.result.image });
+  //     this.meta.updateTag({ property: 'twitter:image', content: this.result.image });
+  //     this.meta.updateTag({ prefix: "og: http://ogp.me/ns#" });
 
-    })
-  }
+  //   })
+  // }
 
 }
