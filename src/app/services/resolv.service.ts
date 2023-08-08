@@ -1,18 +1,24 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, ResolveFn, RouterStateSnapshot } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ResolvService {
+export class ResolvService implements Resolve<any>  {
 
-  constructor() { }
+  data:any[] =[]
+  constructor(private httpService: HttpClient,) { }
 
 
-    getHero(id: string) {
-      return id;
-    }
+    // getHero(id: string) {
+    //   this.httpService.get('https://rickandmortyapi.com/api/character/' + 1).subscribe((result: any) => {
+    //   this.data = result;
+    //   console.log('algo',this.data)
+    //   return of(this.data);
+    //   })
+    // }
 
   // resolve(
   //   route: ActivatedRouteSnapshot,
@@ -25,4 +31,12 @@ export class ResolvService {
   //   //  console.log('desde el resolve',searchTerm);
   //    return alo
   //   }
+
+  resolve(route: ActivatedRouteSnapshot): Observable<any> {
+    console.log(route)
+    const userId = route.queryParams['id'];
+    console.log(userId);
+    const url = `https://rickandmortyapi.com/api/character/${userId}`;
+    return this.httpService.get(url);
+  }
 }

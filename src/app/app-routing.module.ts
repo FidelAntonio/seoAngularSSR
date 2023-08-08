@@ -5,11 +5,11 @@ import { DetalleComponent } from './pages/detalle/detalle.component';
 import { ResolvService } from './services/resolv.service';
 
 
-export const heroResolver: ResolveFn<any> =
-    (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => {
-      return inject(ResolvService).getHero(route.queryParamMap.get('id')!);
-      // this.route.queryParams.subscribe(params => {this.idCurso =params.Oid;});
-    };
+// export const heroResolver: ResolveFn<any> =
+//     (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => {
+//       return inject(ResolvService).getHero(route.queryParamMap.get('data')!);
+//       // this.route.queryParams.subscribe(params => {this.idCurso =params.Oid;});
+//     };
 const routes: Routes = [
   {
     path: 'inicio',
@@ -18,7 +18,7 @@ const routes: Routes = [
   {
     path: 'detalle',
     component: DetalleComponent,
-    resolve: {id: heroResolver},
+    resolve: {id: ResolvService},
   },
   {
     path: '**',
